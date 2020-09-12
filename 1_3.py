@@ -7,7 +7,7 @@ from sklearn.metrics import accuracy_score
 from sklearn.metrics import f1_score as f_score
 from sklearn.metrics import recall_score as recall
 from sklearn.metrics import precision_score as precision
-from sklearn.metrics import confusion_matrix
+from sklearn.metrics import confusion_matrix, plot_confusion_matrix
 from sklearn.metrics import classification_report
 
 
@@ -40,7 +40,7 @@ def identity(x):
 # COMMENT THIS
 # X = documents, Y = labels
 # 2-class or 6-class
-X, Y = read_corpus('trainset.txt', use_sentiment=True)
+X, Y = read_corpus('trainset.txt', use_sentiment=False)
 # seprating the corpus into 75% for train and 25% for test
 split_point = int(0.75*len(X))
 Xtrain = X[:split_point]
@@ -71,7 +71,7 @@ classifier.fit(Xtrain, Ytrain)
 
 # COMMENT THIS
 # getting the predicted labels for test data from the model  
-Yguess = classifier.predict(Xtest)
+# Yguess = classifier.predict(Xtest)
 
 # COMMENT THIS
 # printing the accuracy_score result for measuring the model performance
@@ -79,7 +79,10 @@ Yguess = classifier.predict(Xtest)
 
 
 # print(classification_report(Ytest, Yguess))
-print(confusion_matrix(Ytest, Yguess))
+# print(confusion_matrix(Ytest, Yguess))
+import matplotlib.pyplot as plt
+plot_confusion_matrix(classifier, Xtest, Ytest)
+plt.show()
 
 report_2_class = '''precision    recall  f1-score   support
 
